@@ -7,3 +7,5 @@ export const secretName = 'projects/your-gcp-project-id/secrets/my-private-key/v
 
 export const KAFKA_BROKERS = ['kafka-broker1:9092', 'kafka-broker2:9092']; // Replace with your Kafka broker addresses
 export const REDIS_URL = "redis://username:authpassword@127.0.0.1:6380/4"
+
+export const BATCH_SIZE = 1000;

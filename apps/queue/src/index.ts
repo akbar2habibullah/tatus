@@ -1,8 +1,9 @@
 import { Elysia } from "elysia";
-import { kafkaCron } from './queue'
+import { queueCron } from './queue'
+import './queue'
 
 const app = new Elysia()
-  .use(kafkaCron)
+  .use(queueCron)
   .listen(3000);
 
 console.log(

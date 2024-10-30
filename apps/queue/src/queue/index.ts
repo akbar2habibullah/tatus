@@ -5,10 +5,10 @@ import { redis } from '../redis'
 import Elysia from 'elysia'
 import cron, { Patterns } from '@elysiajs/cron'
 import { privateKey } from '../key'
+import { BATCH_SIZE } from '../../config'
 
 // --- Batching Logic ---
 let batchedUpdates: Record<string, Record<string, number>> = {};
-const BATCH_SIZE = 1000;
 
 // Function to add an update to the batch
 function addToBatch(userAddress: string, metadataType: string, increment: number = 1) {
@@ -66,7 +66,7 @@ await consumer.run({
   },
 });
 
-const kafkaCron = new Elysia()
+export const queueCron = new Elysia()
   .use(
     cron({
       name: 'metadata-updates',
@@ -79,8 +79,3 @@ const kafkaCron = new Elysia()
       }
     })
   )
-
-
-export {
-  kafkaCron
-}
