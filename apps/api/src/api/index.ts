@@ -13,7 +13,7 @@ const app = new Elysia()
   .decorate('s3', s3)
   .decorate('producer', producer)
   .decorate('privateKey', privateKey)
-  .derive(({ headers, error }) => {
+  .resolve(({ headers, error }) => {
     const token =  headers['authorization']
     
     if (!token) {
@@ -29,12 +29,11 @@ const app = new Elysia()
       return error(401)
     }
   })
-  .listen(3000);
 
 // --- API Endpoints ---
 
 // Get Signed URL for Upload (with authentication and validation)
-app.post('/upload', async ({ body, s3, user, privateKey }) => {
+app.post('/upload', async ({ body, s3, user, privateKey, error }) => {
 
   const file = body.file;
   const filename = body.filename;
@@ -66,14 +65,14 @@ app.post('/upload', async ({ body, s3, user, privateKey }) => {
       uploadDate: new Date().toISOString(),
     };
 
-    await updateMetadataInS3(`${user.userId}/${fileKey}`, metadata, privateKey);
+    await updateMetadataInS3(`${user.userId}/${fileKey}`, metadata, await privateKey());
 
     // --- Return Success Response ---
     return { success: true, fileKey };
 
-  } catch (error) {
-    console.error('Error uploading file:', error);
-    return new Response('Error uploading file', { status: 500 });
+  } catch (e) {
+    console.error('Error uploading file:', e);
+    return error(500)
   }
 }, {
   body: t.Object({
@@ -91,7 +90,7 @@ app.post('/upload', async ({ body, s3, user, privateKey }) => {
 });
 
 // Update Metadata (with authentication and validation)
-app.post('/metadata/:address', async ({ body, producer, params, user }) => {
+app.post('/metadata/:address', async ({ body, producer, params, user, error }) => {
 
   const { metadataType } = body
 
@@ -104,11 +103,11 @@ app.post('/metadata/:address', async ({ body, producer, params, user }) => {
       ],
     });
     return { success: true }; 
-  } catch (error) {
-    console.error('Error sending message to Kafka:', error);
-    return { success: false, error: 'Failed to update metadata.' };
+  } catch (e) {
+    console.error('Error sending message to Kafka:', e);
+    return error(500)
   }
-},  {
+}, {
   body: t.Object({
     metadataType: t.Enum({'view': 'view', 'download': 'download', 'like': 'like'}),
     increment: t.Number()

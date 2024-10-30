@@ -7,7 +7,7 @@ const oauth2Client = new OAuth2Client(GOOGLE_CLIENT_ID);
 
 export const authApp = new Elysia()
   .decorate('oauth2Client', oauth2Client)
-  .post('/auth/google', async ({ body, oauth2Client }) => { 
+  .post('/auth/google', async ({ body, oauth2Client, error }) => { 
     try {
       const { tokenId } = body;
   
@@ -24,9 +24,9 @@ export const authApp = new Elysia()
       const token = jwt.sign({ email, name, picture, userId: email?.split('@')[0] }, JWT_SECRET, { expiresIn: '1h' }); // Token expires in 1 hour
   
       return { token }; 
-    } catch (error) {
-      console.error('Error verifying Google ID token:', error);
-      return new Response('Authentication failed.', { status: 401 });
+    } catch (e) {
+      console.error('Error verifying Google ID token:', e);
+      return error(401)
     }
   }, {
     body: t.Object({

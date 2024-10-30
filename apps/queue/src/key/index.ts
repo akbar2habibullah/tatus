@@ -3,7 +3,7 @@ import { secretName } from '../../config'
 
 const kmsClient = new SecretManagerServiceClient();
 
-export const privateKey = await (async () => {
+export const privateKey = async () => {
   try {
     const [accessResponse] = await kmsClient.accessSecretVersion({
       name: secretName,
@@ -15,4 +15,4 @@ export const privateKey = await (async () => {
     console.error('Error accessing secret from Google Cloud KMS:', error);
     throw error; 
   }
-})()
+}

@@ -32,7 +32,7 @@ async function processBatch(batch: Record<string, Record<string, number>>) {
         metadata[type] = (metadata[type] || 0) + batch[address][type];
       }
       // TODO: Sign updated metadata 
-      await updateMetadataInS3(address, metadata, privateKey);
+      await updateMetadataInS3(address, metadata, await privateKey());
     } catch (error) {
       console.error(`Error updating metadata for ${address}:`, error);
       // TODO: Implement error handling (e.g., retry, logging)

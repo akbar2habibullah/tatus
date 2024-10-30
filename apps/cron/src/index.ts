@@ -16,5 +16,5 @@ const app = new Elysia()
   .listen(3000);
 
 console.log(
-  `Elysia CRON is running at ${app.server?.hostname}:${app.server?.port}`
+  `Elysia cron is running at ${app.server?.hostname}:${app.server?.port}`
 );

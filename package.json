@@ -22,7 +22,9 @@
   ],
   "dependencies": {
     "@aws-sdk/client-s3": "^3.682.0",
+    "@elysiajs/cors": "^1.1.1",
     "@elysiajs/cron": "^1.1.1",
+    "@elysiajs/swagger": "^1.1.5",
     "@google-cloud/secret-manager": "^5.6.0",
     "@types/dompurify": "^3.0.5",
     "@types/jsonwebtoken": "^9.0.7",
