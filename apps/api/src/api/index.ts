@@ -30,8 +30,6 @@ const app = new Elysia()
     }
   })
 
-// --- API Endpoints ---
-
 // Get Signed URL for Upload (with authentication and validation)
 app.post('/upload', async ({ body, s3, user, privateKey, error }) => {
 
@@ -79,10 +77,11 @@ app.post('/upload', async ({ body, s3, user, privateKey, error }) => {
     file: t.File({
       type: [
         'image/jpeg',
+        'image/jpg',
         'image/png',
         'image/webp',
       ],
-      maxSize: '5m', // Maximum file size in bytes or using size units like '500m' for 500 megabytes
+      maxSize: '5m', // Maximum file size in bytes or using size units like '5m' for 5 megabytes
     }),
     filename: t.String(),
     description: t.String()
