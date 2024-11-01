@@ -25,13 +25,10 @@ export default function Index() {
             <Link to="/explore" className="text-sm font-medium hover:underline underline-offset-4">
               Explore
             </Link>
-            <Link to="#" className="text-sm font-medium hover:underline underline-offset-4">
-              License
-            </Link>
-            <Link to="#" className="text-sm font-medium hover:underline underline-offset-4">
+            <Link to="/upload" className="text-sm font-medium hover:underline underline-offset-4">
               Upload
             </Link>
-            <Link to="#" className="text-sm font-medium hover:underline underline-offset-4">
+            <Link to="/login" className="text-sm font-medium hover:underline underline-offset-4">
               Join
             </Link>
           </nav>
@@ -63,10 +60,12 @@ export default function Index() {
                 placeholder="Search high-resolution images"
                 className="rounded-r-none placeholder:text-white"
               />
-              <Button type="submit" className="rounded-l-none">
-                <Search className="h-4 w-4 mr-2" />
-                Search
-              </Button>
+              <Link to="/explore">
+                <Button type="submit" className="rounded-l-none">
+                  <Search className="h-4 w-4 mr-2" />
+                  Search
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
@@ -102,10 +101,12 @@ export default function Index() {
             <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
               Join our community of photographers and showcase your best work to millions of users worldwide.
             </p>
-            <ButtonEnhanced variant="gooeyLeft" size="lg" className='bg-black text-white'>
-              <Sparkles className="h-4 w-4 mr-2" />
-              Start uploading
-            </ButtonEnhanced>
+            <Link to="/upload">
+              <ButtonEnhanced variant="gooeyLeft" size="lg" className='bg-black text-white'>
+                <Sparkles className="h-4 w-4 mr-2" />
+                Start uploading
+              </ButtonEnhanced>
+            </Link>
           </div>
         </section>
       </main>

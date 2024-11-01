@@ -83,13 +83,10 @@ export default function Index() {
             <Link to="/explore" className="text-sm font-medium hover:underline underline-offset-4">
               Explore
             </Link>
-            <Link to="#" className="text-sm font-medium hover:underline underline-offset-4">
-              License
-            </Link>
-            <Link to="#" className="text-sm font-medium hover:underline underline-offset-4">
+            <Link to="/upload" className="text-sm font-medium hover:underline underline-offset-4">
               Upload
             </Link>
-            <Link to="#" className="text-sm font-medium hover:underline underline-offset-4">
+            <Link to="/login" className="text-sm font-medium hover:underline underline-offset-4">
               Join
             </Link>
           </nav>
@@ -114,14 +111,15 @@ export default function Index() {
         </Tabs>
 
         <div className="flex flex-col-reverse lg:flex-row gap-8">
-          <div className="md:basis-2/3">
+          <div className="md:basis-3/4">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[10px]">
               {filteredPhotos.map((photo) => (
+                // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
                 <div
                   key={photo.id}
                   className="relative group overflow-hidden cursor-pointer"
                   style={{
-                    gridRowEnd: `span  ${Math.ceil(photo.height / photo.width * 15)}`,
+                    gridRowEnd: `span ${Math.ceil(photo.height / photo.width * 15)}`,
                   }}
                   onClick={() => setSelectedPhoto(photo)}
                 >
@@ -166,7 +164,7 @@ export default function Index() {
             </div>
           </div>
 
-          <div className='basis-1/3'>
+          <div className='basis-1/4'>
             <Card>
               <CardHeader>
                 <CardTitle>Top Contributors</CardTitle>
