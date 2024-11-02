@@ -1,9 +1,10 @@
 import type { MetaFunction } from "@remix-run/node";
 import { Button } from "../components/ui/button"
-import { Sparkles, Heart, Menu, Download, Plus, Settings, Bookmark, Grid } from "lucide-react"
+import { Heart, Download, Plus, Settings, Bookmark, Grid } from "lucide-react"
 import { Link } from "@remix-run/react";
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar'
 import { useState } from 'react'
+import { Layout } from './_layout'
 
 export const meta: MetaFunction = () => {
   return [
@@ -55,31 +56,7 @@ export default function Index() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen text-black">
-      <header className="sticky top-0 z-50 w-full bg-white/30 backdrop-blur supports-[backdrop-filter]:bg-white/60">
-        <div className="container flex h-16 items-center justify-between mx-auto p-4">
-          <Link to="/" className="flex items-center space-x-2">
-            <Sparkles className="h-6 w-6" />
-            <span className="text-xl font-bold">LawfulDiffusion</span>
-          </Link>
-          <nav className="hidden md:flex space-x-6">
-            <Link to="/explore" className="text-sm font-medium hover:underline underline-offset-4">
-              Explore
-            </Link>
-            <Link to="/upload" className="text-sm font-medium hover:underline underline-offset-4">
-              Upload
-            </Link>
-            <Link to="/login" className="text-sm font-medium hover:underline underline-offset-4">
-              Join
-            </Link>
-          </nav>
-          <Button variant="ghost" size="icon" className="md:hidden">
-            <Menu className="h-6 w-6" />
-            <span className="sr-only">Toggle menu</span>
-          </Button>
-        </div>
-      </header>
-
+    <Layout>
       <div className="container mx-auto px-4 py-8">
         <div className="mb-12">
           <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
@@ -168,29 +145,6 @@ export default function Index() {
           ))}
         </div>
       </div>
-
-      <footer className="border-t py-6 md:py-8">
-        <div className="container flex flex-col md:flex-row justify-between items-center mx-auto">
-          <div className="flex items-center space-x-4">
-            <Sparkles className="h-6 w-6" />
-            <span className="text-sm font-medium">© 2024 LawfulDiffusion. All rights reserved.</span>
-          </div>
-          <nav className="flex space-x-4 mt-4 md:mt-0">
-            <Link to="#" className="text-sm text-muted-foreground hover:underline underline-offset-4">
-              About
-            </Link>
-            <Link to="#" className="text-sm text-muted-foreground hover:underline underline-offset-4">
-              Blog
-            </Link>
-            <Link to="#" className="text-sm text-muted-foreground hover:underline underline-offset-4">
-              Community
-            </Link>
-            <Link to="#" className="text-sm text-muted-foreground hover:underline underline-offset-4">
-              Help
-            </Link>
-          </nav>
-        </div>
-      </footer>
-    </div>
+    </Layout>
   );
 }
